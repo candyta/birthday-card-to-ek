@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>to EK</title>
+    <title>生日贺卡</title>
     <style>
         body {
             display: flex;
@@ -48,7 +48,7 @@
             filter: blur(5px); /* 模糊效果 */
         }
         .card-back {
-            background-image: url('./.jpg'); /* 背面占位符图片 */
+            background-image: url('./back.jpg'); /* 背面占位符图片 */
             filter: blur(5px); /* 模糊效果 */
             transform: rotateY(180deg);
         }
@@ -60,7 +60,7 @@
             left: 0;
             background-size: cover;
             background-position: center;
-            clip-path: inset(0 0 100% 0); /* 初始裁剪为 0% */
+            clip-path: inset(100% 0 0 0); /* 初始裁剪为 100%（完全隐藏） */
             transition: clip-path 2s ease-in-out; /* 渐变效果 */
         }
         .card-front-full {
@@ -88,4 +88,19 @@
         const frontFull = document.querySelector('.card-front-full');
         const backFull = document.querySelector('.card-back-full');
 
-        // 
+        // 触发渐变效果
+        function loadHighResImages() {
+            frontFull.style.clipPath = 'inset(0 0 0 0)'; /* 从顶部到底部逐渐显示 */
+            backFull.style.clipPath = 'inset(0 0 0 0)'; /* 从顶部到底部逐渐显示 */
+        }
+
+        // 确保图片加载完成后触发
+        frontFull.onload = loadHighResImages;
+        backFull.onload = loadHighResImages;
+
+        // 提前加载高清图片
+        frontFull.style.backgroundImage = "url('./front.png')";
+        backFull.style.backgroundImage = "url('./back.png')";
+    </script>
+</body>
+</html>
