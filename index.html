@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>生日贺卡</title>
+    <title>to EK</title>
     <style>
         body {
             display: flex;
@@ -41,13 +41,14 @@
             background-size: cover;
             background-position: center;
             transform: translateZ(0); /* 启用硬件加速 */
+            overflow: hidden; /* 隐藏超出部分 */
         }
         .card-front {
             background-image: url('./front.jpg'); /* 正面占位符图片 */
             filter: blur(5px); /* 模糊效果 */
         }
         .card-back {
-            background-image: url('./back.jpg'); /* 背面占位符图片 */
+            background-image: url('./.jpg'); /* 背面占位符图片 */
             filter: blur(5px); /* 模糊效果 */
             transform: rotateY(180deg);
         }
@@ -59,17 +60,14 @@
             left: 0;
             background-size: cover;
             background-position: center;
-            opacity: 0;
-            transition: opacity 0.5s;
+            clip-path: inset(0 0 100% 0); /* 初始裁剪为 0% */
+            transition: clip-path 2s ease-in-out; /* 渐变效果 */
         }
         .card-front-full {
             background-image: url('./front.png'); /* 正面高清图片 */
         }
         .card-back-full {
             background-image: url('./back.png'); /* 背面高清图片 */
-        }
-        .card-front-full.loaded, .card-back-full.loaded {
-            opacity: 1;
         }
     </style>
 </head>
@@ -90,16 +88,4 @@
         const frontFull = document.querySelector('.card-front-full');
         const backFull = document.querySelector('.card-back-full');
 
-        frontFull.onload = function() {
-            frontFull.classList.add('loaded');
-        };
-        backFull.onload = function() {
-            backFull.classList.add('loaded');
-        };
-
-        // 提前加载高清图片
-        frontFull.style.backgroundImage = "url('./front.png')";
-        backFull.style.backgroundImage = "url('./back.png')";
-    </script>
-</body>
-</html>
+        // 
