@@ -14,8 +14,8 @@
             margin: 0;
         }
         .card {
-            width: 300px; /* 调整为适合屏幕的宽度 */
-            height: 480px; /* 按1:1.6的比例计算高度 */
+            width: 300px;
+            height: 480px;
             perspective: 1000px;
             position: relative;
         }
@@ -24,7 +24,9 @@
             height: 100%;
             position: relative;
             transform-style: preserve-3d;
-            transition: transform 0.8s;
+            transition: transform 0.5s;
+            transform: translateZ(0); /* 启用硬件加速 */
+            will-change: transform; /* 提示浏览器提前优化 */
         }
         .card:hover .card-inner {
             transform: rotateY(180deg);
@@ -38,6 +40,7 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             background-size: cover;
             background-position: center;
+            transform: translateZ(0); /* 启用硬件加速 */
         }
         .card-front {
             background-image: url('./front.png'); /* 正面图片路径 */
