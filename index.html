@@ -3,10 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>21岁生日快乐！</title>
-    <!-- 预加载图片 -->
-    <link rel="preload" href="./front.png" as="image">
-    <link rel="preload" href="./back.png" as="image">
+    <title>生日贺卡</title>
     <style>
         body {
             display: flex;
@@ -46,20 +43,63 @@
             transform: translateZ(0); /* 启用硬件加速 */
         }
         .card-front {
-            background-image: url('./front.png'); /* 正面图片路径 */
+            background-image: url('./front.jpg'); /* 正面占位符图片 */
+            filter: blur(5px); /* 模糊效果 */
         }
         .card-back {
-            background-image: url('./back.png'); /* 背面图片路径 */
+            background-image: url('./back.jpg'); /* 背面占位符图片 */
+            filter: blur(5px); /* 模糊效果 */
             transform: rotateY(180deg);
+        }
+        .card-front-full, .card-back-full {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        .card-front-full {
+            background-image: url('./front.png'); /* 正面高清图片 */
+        }
+        .card-back-full {
+            background-image: url('./back.png'); /* 背面高清图片 */
+        }
+        .card-front-full.loaded, .card-back-full.loaded {
+            opacity: 1;
         }
     </style>
 </head>
 <body>
     <div class="card">
         <div class="card-inner">
-            <div class="card-front"></div>
-            <div class="card-back"></div>
+            <div class="card-front">
+                <div class="card-front-full"></div>
+            </div>
+            <div class="card-back">
+                <div class="card-back-full"></div>
+            </div>
         </div>
     </div>
+
+    <script>
+        // 加载高清图片
+        const frontFull = document.querySelector('.card-front-full');
+        const backFull = document.querySelector('.card-back-full');
+
+        frontFull.onload = function() {
+            frontFull.classList.add('loaded');
+        };
+        backFull.onload = function() {
+            backFull.classList.add('loaded');
+        };
+
+        // 提前加载高清图片
+        frontFull.style.backgroundImage = "url('./front.png')";
+        backFull.style.backgroundImage = "url('./back.png')";
+    </script>
 </body>
 </html>
